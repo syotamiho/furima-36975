@@ -5,14 +5,18 @@
 | nickname              | string            | null: false           |
 | email                 | string            | null: false           |
 | encrypted_password    | string            | null: false           |
-| birthday              | string            | null: false           |
-| name_full             | string            | null: false           |
-| name_half             | string            | null: false           |
+| last_name_full        | string            | null: false           |
+| first_name_full       | string            | null: false           |
+| last_name_half        | string            | null: false           |
+| first_name_half       | string            | null: false           |
+| birthday_yy           | integer           | null: false           |
+| birthday_mm           | integer           | null: false           |
+| birthday_dd           | integer           | null: false           |
 
 ### Association
 
 - has_many :items
-- has_many :comments
+- has_one :address
 
 
 ## itemsテーブル
@@ -23,30 +27,15 @@
 | category              | string            | null: false                    |
 | situation             | string            | null: false                    |
 | postage               | string            | null: false                    |
-| prefecture            | string            | null: false                    |
+| city                  | string            | null: false                    |
 | shipping_date         | string            | null: false                    |
-| explanation           | text              | null: false
+| explanation           | text              | null: false                    |
+| price                 | string            | null: false                    |
 | user                  | references        | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- has_many :comments
-- has_one :address
-
-
-## commentsテーブル
-
-| Column                | Type              | Option                         |
-| --------------------- | ----------------- | ------------------------------ |
-| content               | string            | null: false                    |
-| user                  | references        | null: false, foreign_key: true |
-| item                  | references        | null: false, foreign_key: true |
-
-### Association
-
-- belongs_to :user
-- belongs_to :item
 
 
 ## addressesテーブル
@@ -59,8 +48,8 @@
 | block                 | string            | null: false                    |
 | building              | string            |                                |
 | number                | string            | null: false                    |
-| item                  | references        | null: false, foreign_key: true |
+| user                  | references        | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :item
+- belongs_to :user
