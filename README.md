@@ -8,7 +8,7 @@
 | first_name_full       | string            | null: false                    |
 | last_name_half        | string            | null: false                    |
 | first_name_half       | string            | null: false                    |
-| birthday              | integer           | null: false                    |
+| birthday              | date              | null: false                    |
 
 ### Association
 - has_many :items
