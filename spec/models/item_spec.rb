@@ -22,28 +22,28 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Explanation can't be blank")
       end
-      it 'カテゴリーが空では出品できない' do
-        @item.category_id = ''
+      it 'カテゴリーに「1」が選択されている場合は出品できない' do
+        @item.category_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
-      it '状態が空では出品できない' do
-        @item.situation_id = ''
+      it '商品の状態に「1」が選択されている場合は出品できない' do
+        @item.situation_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Situation can't be blank")
       end
-      it '配送料が空では出品できない' do
-        @item.postage_id = ''
+      it '配送料の負担に「1」が選択されている場合は出品できない' do
+        @item.postage_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Postage can't be blank")
       end
-      it '地域が空では出品できない' do
-        @item.city_id = ''
+      it '発送元の地域に「1」が選択されている場合は出品できない' do
+        @item.city_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("City can't be blank")
       end
-      it '発送までの日数が空では出品できない' do
-        @item.shipping_date_id = ''
+      it '発送までの日数に「1」が選択されている場合は出品できない' do
+        @item.shipping_date_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping date can't be blank")
       end
@@ -66,6 +66,16 @@ RSpec.describe Item, type: :model do
         @item.price = '10000000'
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
+      end
+      it '画像が空では出品できない' do
+        @item.image = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Image can't be blank")
+      end
+      it 'userが紐付いていなければ出品できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("User must exist")
       end
     end
   end
