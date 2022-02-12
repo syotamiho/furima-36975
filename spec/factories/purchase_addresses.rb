@@ -7,7 +7,5 @@ FactoryBot.define do
     block { '青山1-1' }
     building { '東京ハイツ' }
     number { '09012345678' }
-    user_id { "1" }
-    item_id { "3" }
   end
 end
