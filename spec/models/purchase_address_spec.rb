@@ -42,12 +42,21 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Number can't be blank")
       end
+      it 'numberは10桁以上11桁以内の半角数値以外だと購入できない' do
+        @purchase_address.number = '090-1234'
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Number is invalid")
+      end
       it 'city_idに「1」が選択されている場合は出品できない' do
         @purchase_address.city_id = '1'
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("City can't be blank")
       end
-      
+      it 'tokenが空だと購入できない' do
+        @purchase_address.token = ''
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Token can't be blank")
+      end
     end
   end
 end
