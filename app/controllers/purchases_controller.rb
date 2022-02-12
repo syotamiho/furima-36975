@@ -1,4 +1,6 @@
 class PurchasesController < ApplicationController
+  before_action :sold
+  before_action :authenticate_user
   def index
     @item = Item.find(params[:item_id])
     @purchase_address = PurchaseAddress.new
@@ -23,12 +25,26 @@ class PurchasesController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = "sk_test_5bc47e2df49906d48d52e879"
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
       amount: @item.price,
       card: params[:token],
       currency: 'jpy'
     )
+  end
+
+  def sold
+    @item = Item.find(params[:item_id])
+    if @item.purchase.present?
+      redirect_to root_path
+    end
+  end
+
+  def authenticate_user
+    @item = Item.find(params[:item_id])
+    if current_user.id == @item.user.id
+      redirect_to root_path
+    end
   end
 
 end
